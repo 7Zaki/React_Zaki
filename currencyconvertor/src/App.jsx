@@ -9,10 +9,8 @@ function App() {
   const [to, setTo] = useState("inr")
   const [convertedAmount, setConvertedAmount] = useState(0)
 
-  const currencyInfo = useCurrencyInfo(from)
-
-
-  const options = Object.keys(currencyInfo)
+  let currencyInfo = useCurrencyInfo(from);
+  const options = Object.keys(currencyInfo);
 
   const swap = () => {
     setFrom(to)
@@ -46,13 +44,14 @@ function App() {
                             label="From"
                             amount={amount}
                             currencyOptions={options}
-                            onCurrencyChange={(currency) => setAmount(amount)}
+                            onCurrencyChange={(currency) => setFrom(currency)}
                             selectCurrency={from}
                             onAmountChange={(amount) => setAmount(amount)}
                         />
                     </div>
                     <div className="relative w-full h-0.5">
                         <button
+                            onClick={swap}
                             type="button"
                             className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 border-2 border-white rounded-md bg-blue-600 text-white px-2 py-0.5"
                             
@@ -66,14 +65,14 @@ function App() {
                             amount={convertedAmount}
                             currencyOptions={options}
                             onCurrencyChange={(currency) => setTo(currency)}
-                            selectCurrency={from}
-                            amountDisable
+                            selectCurrency={to}
+                            
                             
                         />
                     </div>
                     <button 
-                    onClick={swap}
-                    type="submit" className="w-full bg-blue-600 text-white px-4 py-3 rounded-lg">
+                    type="submit" 
+                    className="w-full bg-blue-600 text-white px-4 py-3 rounded-lg">
                         Convert {from.toUpperCase()} to {to.toUpperCase()}
                     </button>
                 </form>
